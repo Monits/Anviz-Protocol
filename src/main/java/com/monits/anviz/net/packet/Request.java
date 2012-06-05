@@ -4,10 +4,8 @@ import com.monits.packer.annotation.DependsOn;
 import com.monits.packer.annotation.Encode;
 import com.monits.packer.annotation.Unsigned;
 
-public class Response {
+public class Request {
 	
-	public static final short SUCCESS = 0x00;
-
 	@Encode(0)
 	@Unsigned
 	private short magic;
@@ -22,22 +20,12 @@ public class Response {
 	
 	@Encode(3)
 	@Unsigned
-	private short ack;
-	
-	@Encode(4)
-	@Unsigned
 	private int length;
 	
-	@Encode(5)
+	@Encode(4)
 	@DependsOn({ "length" })
 	private byte[] data;
 	
-	@Encode(6)
-	private byte checksumLow;
-
-	@Encode(7)
-	private byte checksumHigh;
-
 	public short getMagic() {
 		return magic;
 	}
@@ -51,6 +39,7 @@ public class Response {
 	}
 
 	public void setDeviceCode(long deviceCode) {
+		assert(0 <= deviceCode && deviceCode <= 0xFFFFFFFFL);
 		this.deviceCode = deviceCode;
 	}
 
@@ -59,6 +48,7 @@ public class Response {
 	}
 
 	public void setCommand(short command) {
+		assert(0 <= deviceCode && deviceCode <= 0xFFL);
 		this.command = command;
 	}
 
@@ -67,6 +57,7 @@ public class Response {
 	}
 
 	public void setLength(int length) {
+		assert(0 <= deviceCode && deviceCode <= 0xFFFFL);
 		this.length = length;
 	}
 
@@ -78,28 +69,6 @@ public class Response {
 		this.data = data;
 	}
 
-	public byte getChecksumLow() {
-		return checksumLow;
-	}
-
-	public void setChecksumLow(byte checksumLow) {
-		this.checksumLow = checksumLow;
-	}
-
-	public byte getChecksumHigh() {
-		return checksumHigh;
-	}
-
-	public void setChecksumHigh(byte checksumHigh) {
-		this.checksumHigh = checksumHigh;
-	}
-
-	public short getAck() {
-		return ack;
-	}
-
-	public void setAck(short ack) {
-		this.ack = ack;
-	}
+	
 	
 }
