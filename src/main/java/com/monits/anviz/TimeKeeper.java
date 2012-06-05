@@ -72,8 +72,4 @@ public class TimeKeeper {
 		}
 	}
 
-	public static void main(String[] args) throws IOException, UncooperativeDeviceException {
-		TimeKeeper timeKeeper = new TimeKeeper("localhost", 1337, 1L);
-		System.out.println(timeKeeper.getUsers());
-	}
 }
