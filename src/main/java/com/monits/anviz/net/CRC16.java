@@ -23,7 +23,7 @@ public class CRC16 {
                 if (c15 ^ bit) {
                 	crc ^= polynomial;
                 }
-             }
+            }
         }
 
         return crc & 0xFFFF;
