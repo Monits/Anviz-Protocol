@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 
 public class CheckOut extends Action {
 
-	public CheckOut(short id, DateTime time) {
+	public CheckOut(long id, DateTime time) {
 		super(id, time);
 	}
 

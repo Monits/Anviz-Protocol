@@ -4,17 +4,17 @@ import org.joda.time.DateTime;
 
 public abstract class Action {
 
-	private short id;
+	private long id;
 	
 	private DateTime time;
 
-	public Action(short id, DateTime time) {
+	public Action(long id, DateTime time) {
 		super();
 		this.id = id;
 		this.time = time;
 	}
 
-	public short getId() {
+	public long getId() {
 		return id;
 	}
 
