@@ -33,6 +33,12 @@ public class TimeKeeper {
 		return null;
 	}
 	
+	/**
+	 * Purges all actions stored in the device.
+	 * 
+	 * This cannot be rolled back. It's a destructive operation.
+	 * Make sure you reaaaaaally mean to call this when you do.
+	 */
 	public void purgeActions() {
 	}
 	
