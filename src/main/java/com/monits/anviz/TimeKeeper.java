@@ -17,12 +17,18 @@ import com.monits.packer.Packer;
 
 public class TimeKeeper {
 	
+	private static final int DEFAULT_PORT = 5010;
+	
 	private Connection conn;
 	
 	public TimeKeeper(String ip, int port, long deviceCode) throws IOException {
 		conn = new Connection(ip, port, deviceCode);
 	}
 	
+	public TimeKeeper(String ip, long deviceCode) throws IOException {
+		this(ip, DEFAULT_PORT, deviceCode);
+	}
+
 	public List<Action> getActions() {
 		return null;
 	}
