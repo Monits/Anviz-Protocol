@@ -7,12 +7,11 @@ import com.monits.packer.annotation.Unsigned;
 public class UserEntry {
 
 	@Encode(0)
-	@FixedLength(4)
-	private byte[] unknown0;
+	private byte unknown0;
 
 	@Encode(1)
 	@Unsigned
-	private short userId;
+	private long userId;
 	
 	@Encode(2)
 	@FixedLength(7)
@@ -26,19 +25,19 @@ public class UserEntry {
 	@FixedLength(8)
 	private byte[] uknown2;
 
-	public byte[] getUnknown0() {
+	public byte getUnknown0() {
 		return unknown0;
 	}
 
-	public void setUnknown0(byte[] unknown0) {
+	public void setUnknown0(byte unknown0) {
 		this.unknown0 = unknown0;
 	}
 
-	public short getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(short userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
