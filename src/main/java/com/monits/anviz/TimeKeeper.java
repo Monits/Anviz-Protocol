@@ -72,7 +72,7 @@ public class TimeKeeper {
 	
 	private boolean isValidResponse(Command cmd, Response res) {
 		if (res != null) {
-			return cmd.getCommand() + 0x80 == res.getCommand() && res.getAck() == Response.SUCCESS;
+			return res.getAck() == Response.SUCCESS;
 		} else {
 			return false;
 		}

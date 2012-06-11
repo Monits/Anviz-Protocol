@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Arrays;
 
+import com.monits.anviz.UncooperativeDeviceException;
 import com.monits.anviz.net.packet.Command;
 import com.monits.anviz.net.packet.Request;
 import com.monits.anviz.net.packet.Response;
@@ -22,7 +23,7 @@ public class Connection {
 		this.deviceCode = deviceCode;
 	}
 	
-	public Response send(Command cmd) throws IOException, InvalidChecksumException {
+	public Response send(Command cmd) throws IOException, InvalidChecksumException, UncooperativeDeviceException {
 		
 		Request request = new Request();
 		
@@ -43,9 +44,31 @@ public class Connection {
 		socket.getOutputStream().write(data);
 		Codec<Response> codec = CodecFactory.get(Response.class);
 		
-		Response response = codec.decode(new PackerInputStream(socket.getInputStream()), null);
-		if (!hasValidCRC(response)) {
-			throw new InvalidChecksumException();
+		/*
+		 * A sane man might ask, "why the loop champo? It makes no sense!"
+		 * Well, sane man, the answer is simple. 
+		 * Even though the device is request-response oriented, it seems that at any given moment, 
+		 * it might decide to send you a TA record. The last one it seems.
+		 * 
+		 * The response code for that message is 0xDF. It contains at most one TA record.
+		 * Since this doesn't mean that TA record is discarded from the device, logic follows we just ignore it.
+		 */
+		
+		Response response = null;
+		do {
+			if (response != null) {
+				System.out.println("Retrying after an 0xDF");
+			}
+			
+			response = codec.decode(new PackerInputStream(socket.getInputStream()), null);
+			if (!hasValidCRC(response)) {
+				throw new InvalidChecksumException();
+			}
+		
+		} while (response.getCommand() == 0xDF);
+		
+		if (cmd.getCommand() + 0x80 != response.getCommand()) {
+			throw new UncooperativeDeviceException("The response code doesnt match the command code");
 		}
 		
 		return response;
