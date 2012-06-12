@@ -4,9 +4,9 @@ import org.joda.time.DateTime;
 
 public abstract class Action {
 
-	private long id;
+	protected long id;
 	
-	private DateTime time;
+	protected DateTime time;
 
 	public Action(long id, DateTime time) {
 		super();

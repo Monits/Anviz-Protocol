@@ -8,4 +8,9 @@ public class CheckOut extends Action {
 		super(id, time);
 	}
 
+	@Override
+	public String toString() {
+		return "CheckOut [id=" + id + ", time=" + time + "]";
+	}
+
 }
