@@ -28,9 +28,17 @@ public class TimeKeeper {
 	private static final int DEFAULT_PORT = 5010;
 	
 	private Connection conn;
+
+	private DateTimeZone timezone;
+	
+	
+	public TimeKeeper(String ip, int port, long deviceCode, DateTimeZone timezone) throws IOException {
+		conn = new Connection(ip, port, deviceCode);
+		this.timezone = timezone;
+	}
 	
 	public TimeKeeper(String ip, int port, long deviceCode) throws IOException {
-		conn = new Connection(ip, port, deviceCode);
+		this(ip, port, deviceCode, null);
 	}
 	
 	public TimeKeeper(String ip, long deviceCode) throws IOException {
@@ -79,7 +87,9 @@ public class TimeKeeper {
 	}
 	
 	private DateTime buildDateTime(long seconds) {
-		return new DateTime(2000, 01, 01, 00, 00, 00, DateTimeZone.UTC).plusSeconds((int) seconds);
+		// The documentation says that dates are given as seconds since year 2000
+		// However, experience shows that it's actually from the second day of the year 2000
+		return new DateTime(2000, 01, 02, 00, 00, 00, timezone).plusSeconds((int) seconds);
 	}
 
 	/**
