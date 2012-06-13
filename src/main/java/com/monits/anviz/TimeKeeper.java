@@ -25,6 +25,11 @@ import com.monits.anviz.net.packet.payload.UserEntry;
 import com.monits.anviz.net.packet.payload.UserList;
 import com.monits.packer.Packer;
 
+/**
+ * Represents an Anviz Timekeeper device.
+ * 
+ * @author jpcivile
+ */
 public class TimeKeeper {
 	
 	private static final int DEFAULT_PORT = 5010;
@@ -32,21 +37,53 @@ public class TimeKeeper {
 	private Connection conn;
 
 	private DateTimeZone timezone;
-	
-	
+
+	/**
+	 * 
+	 * @param ip         The ip the device has on the network.
+	 * @param port       The port the device listens on.
+	 * @param deviceCode The code for the device.
+	 * @param timezone   The timezone your device uses.
+	 * 
+	 * @throws IOException
+	 */
 	public TimeKeeper(String ip, int port, long deviceCode, DateTimeZone timezone) throws IOException {
 		conn = new Connection(ip, port, deviceCode);
 		this.timezone = timezone;
 	}
 	
+	/**
+	 * Construct a new {@link TimeKeeper} using the default system timezone.
+	 * 
+	 * @param ip         The ip the device has on the network.
+	 * @param port       The port the device listens on.
+	 * @param deviceCode The code for the device.
+	 * 
+	 * @throws IOException
+	 */
 	public TimeKeeper(String ip, int port, long deviceCode) throws IOException {
 		this(ip, port, deviceCode, null);
 	}
 	
+	/**
+	 * Construct a new {@link TimeKeeper} with the default system timezone and default port.
+	 * 
+	 * @param ip         The ip the device has on the network.
+	 * @param deviceCode The code for the device.
+	 * 
+	 * @throws IOException
+	 */
 	public TimeKeeper(String ip, long deviceCode) throws IOException {
 		this(ip, DEFAULT_PORT, deviceCode);
 	}
 
+	/**
+	 * Get all the check ins and check outs stored in the device. 
+	 * 
+	 * @return A list of actions.
+	 * 
+	 * @throws UncooperativeDeviceException
+	 */
 	public List<Action> getActions() throws UncooperativeDeviceException {
 		
 		boolean first = true;
@@ -133,6 +170,13 @@ public class TimeKeeper {
 		return total;
 	}
 	
+	/**
+	 * Get all the users registered with the device.
+	 * 
+	 * @return A list of users.
+	 * 
+	 * @throws UncooperativeDeviceException
+	 */
 	public List<User> getUsers() throws UncooperativeDeviceException {
 		
 		boolean first = true;
