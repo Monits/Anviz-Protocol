@@ -15,10 +15,12 @@ import com.monits.anviz.net.Connection;
 import com.monits.anviz.net.InvalidChecksumException;
 import com.monits.anviz.net.packet.AttendanceRecordsRequest;
 import com.monits.anviz.net.packet.Command;
+import com.monits.anviz.net.packet.PurgeRecordsRequest;
 import com.monits.anviz.net.packet.Response;
 import com.monits.anviz.net.packet.UserListRequest;
 import com.monits.anviz.net.packet.payload.AttendanceList;
 import com.monits.anviz.net.packet.payload.AttendanceRecord;
+import com.monits.anviz.net.packet.payload.PurgeResponse;
 import com.monits.anviz.net.packet.payload.UserEntry;
 import com.monits.anviz.net.packet.payload.UserList;
 import com.monits.packer.Packer;
@@ -97,8 +99,38 @@ public class TimeKeeper {
 	 * 
 	 * This cannot be rolled back. It's a destructive operation.
 	 * Make sure you reaaaaaally mean to call this when you do.
+	 * 
+	 * Any actions that haven't been processed before, are lost.
+	 * @throws UncooperativeDeviceException 
+	 * 
 	 */
-	public void purgeActions() {
+	public int purgeActions() throws UncooperativeDeviceException {
+		
+		int purged = 0;
+		int total = 0;
+		
+		do {
+			PurgeRecordsRequest cmd = new PurgeRecordsRequest(true);
+			Response response;
+			try {
+				response = conn.send(cmd);
+			} catch (IOException e) {
+				throw new UncooperativeDeviceException(e);
+			} catch (InvalidChecksumException e) {
+				throw new UncooperativeDeviceException(e);
+			}
+			
+			if (!isValidResponse(cmd, response)) {
+				throw new UncooperativeDeviceException("Got an invalid response");
+			}
+			
+			PurgeResponse purge = Packer.decode(PurgeResponse.class, response.getData());
+			purged = purge.getCount();
+			total += purged;
+			
+		} while (purged > 0);
+		
+		return total;
 	}
 	
 	public List<User> getUsers() throws UncooperativeDeviceException {
