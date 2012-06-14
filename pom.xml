@@ -17,6 +17,18 @@
         <version>1.0</version>
     </parent>
 
+    <licenses>
+        <license>
+            <name>Copyright of Monits S.A.</name>
+        </license>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
     <repositories>
         <repository>
             <id>monits-external</id>
