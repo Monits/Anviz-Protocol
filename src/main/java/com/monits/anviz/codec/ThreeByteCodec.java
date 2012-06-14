@@ -19,9 +19,9 @@ package com.monits.anviz.codec;
 
 import java.io.IOException;
 
-import com.monits.packer.codec.Codec;
-import com.monits.packer.streams.InputByteStream;
-import com.monits.packer.streams.OutputByteStream;
+import com.monits.jpack.codec.Codec;
+import com.monits.jpack.streams.InputByteStream;
+import com.monits.jpack.streams.OutputByteStream;
 
 public class ThreeByteCodec implements Codec<Integer> {
 	

@@ -18,8 +18,8 @@
 package com.monits.anviz.net.packet.payload;
 
 import com.monits.anviz.codec.ThreeByteCodec;
-import com.monits.packer.annotation.Encode;
-import com.monits.packer.annotation.UseCodec;
+import com.monits.jpack.annotation.Encode;
+import com.monits.jpack.annotation.UseCodec;
 
 public class PurgeResponse {
 	

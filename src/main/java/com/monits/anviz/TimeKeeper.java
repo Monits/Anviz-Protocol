@@ -40,7 +40,7 @@ import com.monits.anviz.net.packet.payload.AttendanceRecord;
 import com.monits.anviz.net.packet.payload.PurgeResponse;
 import com.monits.anviz.net.packet.payload.UserEntry;
 import com.monits.anviz.net.packet.payload.UserList;
-import com.monits.packer.Packer;
+import com.monits.jpack.Packer;
 
 /**
  * Represents an Anviz Timekeeper device.
@@ -122,7 +122,7 @@ public class TimeKeeper {
 				throw new UncooperativeDeviceException("Got an invalid response");
 			}
 			
-			AttendanceList list = Packer.decode(AttendanceList.class, response.getData());
+			AttendanceList list = Packer.unpack(AttendanceList.class, response.getData());
 			results = list.getCount();
 			
 			for (AttendanceRecord record : list.getRecords()) {
@@ -178,7 +178,7 @@ public class TimeKeeper {
 				throw new UncooperativeDeviceException("Got an invalid response");
 			}
 			
-			PurgeResponse purge = Packer.decode(PurgeResponse.class, response.getData());
+			PurgeResponse purge = Packer.unpack(PurgeResponse.class, response.getData());
 			purged = purge.getCount();
 			total += purged;
 			
@@ -215,7 +215,7 @@ public class TimeKeeper {
 				throw new UncooperativeDeviceException("Got an invalid response");
 			}
 			
-			UserList list = Packer.decode(UserList.class, response.getData());
+			UserList list = Packer.unpack(UserList.class, response.getData());
 			results = list.getCount();
 			
 			for (UserEntry user : list.getUsers()) {

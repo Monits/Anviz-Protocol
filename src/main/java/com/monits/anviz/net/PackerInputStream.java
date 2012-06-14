@@ -20,7 +20,7 @@ package com.monits.anviz.net;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.monits.packer.streams.InputByteStream;
+import com.monits.jpack.streams.InputByteStream;
 
 public class PackerInputStream implements InputByteStream {
 	

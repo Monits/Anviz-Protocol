@@ -17,9 +17,9 @@
  */
 package com.monits.anviz.net.packet.payload;
 
-import com.monits.packer.annotation.DependsOn;
-import com.monits.packer.annotation.Encode;
-import com.monits.packer.annotation.Unsigned;
+import com.monits.jpack.annotation.DependsOn;
+import com.monits.jpack.annotation.Encode;
+import com.monits.jpack.annotation.Unsigned;
 
 public class AttendanceList {
 	

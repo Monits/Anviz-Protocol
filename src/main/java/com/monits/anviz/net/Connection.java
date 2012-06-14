@@ -25,9 +25,9 @@ import com.monits.anviz.UncooperativeDeviceException;
 import com.monits.anviz.net.packet.Command;
 import com.monits.anviz.net.packet.Request;
 import com.monits.anviz.net.packet.Response;
-import com.monits.packer.CodecFactory;
-import com.monits.packer.Packer;
-import com.monits.packer.codec.Codec;
+import com.monits.jpack.CodecFactory;
+import com.monits.jpack.Packer;
+import com.monits.jpack.codec.Codec;
 
 public class Connection {
 	
@@ -51,7 +51,7 @@ public class Connection {
 		request.setDeviceCode(deviceCode);
 		request.setMagic((short) 0xA5);
 		
-		byte[] encoded = Packer.encode(request);
+		byte[] encoded = Packer.pack(request);
 		int crc = CRC16.calculateCCITT(encoded);
 		
 		byte[] data = Arrays.copyOf(encoded, encoded.length + 2);
@@ -93,7 +93,7 @@ public class Connection {
 
 	private boolean hasValidCRC(Response response) {
 		
-		byte[] packed = Packer.encode(response);
+		byte[] packed = Packer.pack(response);
 		if (packed == null || packed.length < 2) {
 			return false;
 		}
