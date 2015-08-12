@@ -1,0 +1,25 @@
+{
+    "linters": {
+        "maven": {
+           "type": "maven",
+           "lints": [ "checkstyle", "findbugs", "pmd", "cpd" ],
+           "include": "(\\.java$)"
+        },	        
+        "json": {
+            "type": "json",
+            "include": [
+                "(^\\.arcconfig$)",
+                "(^\\.arclint$)"
+            ]
+        },
+        "chmod": {
+            "type": "chmod"
+        },
+        "merge-conflict": {
+            "type": "merge-conflict"
+        },
+        "spelling": {
+            "type": "spelling"
+        }
+    }
+}

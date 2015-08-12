@@ -1,0 +1,7 @@
+{
+    "repository.callsign": "MAVZ",
+    "conduit_uri": "http://ph.monits.com/",
+    "load": [
+        "/opt/arc-lint/"
+    ]
+}
